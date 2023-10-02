@@ -1,20 +1,24 @@
-pipeline{
+pipeline {
     agent any 
-    environment{
+    environment {
         HEROKU_API_KEY = credentials('heroku-api-key')
         APP_NAME = 'jenkins-react-deploy'
     }
-    stages{
-        stage('Build'){
-            steps{
-                sh 'npm run build'
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                 bat 'npm install bootstrap'  
+                bat 'npm install'  
             }
         }
-        stage('Deploy'){
-            steps{
-                 sh '''
-                  heroku container:release web --app=$APP_NAME
-                 '''
+        stage('Build') {
+            steps {
+                   bat 'CI=false npm run build'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the app'
             }
         }
     }
