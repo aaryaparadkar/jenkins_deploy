@@ -7,12 +7,14 @@ pipeline{
     stages{
         stage('Build'){
             steps{
-                sh 'npm build'
+                sh 'npm run build'
             }
         }
         stage('Deploy'){
             steps{
-                echo 'Deploying the app'
+                 sh '''
+                  heroku container:release web --app=$APP_NAME
+                 '''
             }
         }
     }
