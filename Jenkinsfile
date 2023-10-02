@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                   bat 'CI=false npm run build'
+                   bat 'npm run build'
             }
         }
         stage('Deploy') {
